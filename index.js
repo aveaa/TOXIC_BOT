@@ -37,11 +37,11 @@ client.on('message', (message) => {
 
             fields: [{
                 name: "Мои комады:",
-                value: '**__'+prefix+'ping\n'+prefix+'avatar\n'+prefix+'penis\n...\n__In developing!__\n...'
+                value: '**__'+prefix+'ping\n'+prefix+'avatar\n'+prefix+'penis\n...\n__In developing!__\n...**__'
               },
               {
                 name: "Мой сервер:",
-                value: "**Заходи, здесь весело - [Орден Геймеров](https://discord.gg/FTgCAj6)!**"
+                value: "**Заходи, здесь весело - [Орден Геймеров](https://discord.gg/tkFKQTN)!**"
               }
             ],
             timestamp: new Date(),
