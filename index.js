@@ -116,5 +116,5 @@ client.on('message', (message) => {
     };
 
 });
-client.login(BOT_TOKEN).catch(console.error);
+client.login(process.env.BOT_TOKEN).catch(console.error);
 process.env.BOT_TOKEN = process.env.POSLANIYE;
