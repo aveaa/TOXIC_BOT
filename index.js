@@ -37,7 +37,7 @@ client.on('message', (message) => {
 
             fields: [{
                 name: "Мои комады:",
-                value: '**__'+prefix+'ping\n'+prefix+'avatar\n'+prefix+'penis\n...\n__In developing!__\n...**__'
+                value: '**__'+prefix+'ping\n'+prefix+'avatar\n'+prefix+'penis__**\n...\nIn developing!\n...'
               },
               {
                 name: "Мой сервер:",
