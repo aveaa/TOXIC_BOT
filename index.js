@@ -163,7 +163,7 @@ client.on('message', (message) => {
     };
     
       for (var i = 0, sum = 0; i < x.length; sum += x[i++]);  
-      y = sum % 26;
+      y = sum % 27;
       message.channel.send('8'+'='.repeat(y)+'D');
     };
 
