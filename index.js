@@ -9,6 +9,58 @@ client.on("ready", () => {
   client.user.setActivity(`on Over999 servers`);
 });
 
+client.on("messageUpdate", (old_mess, new_mess) => {
+  if (!old_mess.author.bot) {
+  client.channels.get('451753898458349568').send({embed: {
+    author: {
+      name: new_mess.author.username,
+      icon_url: new_mess.author.avatarURL
+    },
+      color: 3447003,
+
+      fields: [{
+        name: 'До изменения:',
+        value: '```'+old_mess.content+'```'
+      },
+      {
+        name: "После изменения:",
+        value: '```'+new_mess.content+'```'
+      }
+    ],
+
+      timestamp: new Date(),
+      footer: {
+        text: 'in channel '+new_mess.channel.name
+      }
+    }
+
+  });}
+});
+
+client.on("messageDelete", (del_mess) => {
+  if (!del_mess.author.bot) {
+  client.channels.get('451753898458349568').send({embed: {
+    author: {
+      name: del_mess.author.username,
+      icon_url: del_mess.author.avatarURL
+    },
+      color: 3447003,
+
+      fields: [{
+        name: 'Сообщение удалено:',
+        value: '```'+del_mess.content+'```'
+      },
+    ],
+
+      timestamp: new Date(),
+      footer: {
+        text: 'in channel '+del_mess.channel.name
+      }
+    }
+
+  });}
+});
+
 client.on('message', (message) => {
 
   if(message.author.bot) return;
