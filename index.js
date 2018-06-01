@@ -39,6 +39,11 @@ client.on("messageUpdate", (old_mess, new_mess) => {
 
 function serverInfo(message){
 
+  if(message.guild.region === 'russia'){
+    var reg = 'Россия'} else {reg = message.guild.region};
+  if(message.guild.verification_level == '0'){
+    var vr = 'Нету'} else {vr = message.guild.verification_level};
+
   return embed = new Discord.RichEmbed()
 
   .setAuthor(message.guild.name, message.guild.iconURL)
@@ -51,13 +56,14 @@ function serverInfo(message){
   
   .setTimestamp()
 
-  .addField("Уровень проверки", 'Нету', true)
-  .addField("Регион", message.guild.region, true)
-  .addField("Участники:", message.guild.memberCount, true)
-  .addField(`Каналы [${message.guild.channels.size}]`,'Текстовых: `'+message.guild.channels.filter(guildchannel => {if(guildchannel.type == "text") return guildchannel}).size+'`\nГолосовых: `'+message.guild.channels.filter(guildchannel => {if(guildchannel.type == "voice") return guildchannel}).size+'`', true )
+  .addField("Уровень проверки", vr, true)
+  .addField("Регион", reg, true)
+  .addField("Участники",'Всего:      `'+message.guild.memberCount+'`\nОнлайн:  `'+message.guild.members.filter(m => m.presence.status !== 'offline').size+'`', true)
+  .addField(`Каналы [${message.guild.channels.size}]`,'Текстовых:  `'+message.guild.channels.filter(guildchannel => {if(guildchannel.type == "text") return guildchannel}).size+'`\nГолосовых:  `'+message.guild.channels.filter(guildchannel => {if(guildchannel.type == "voice") return guildchannel}).size+'`', true )
+  .addBlankField(true)
   .addField("Создатель:", message.guild.owner.user.username +'#'+message.guild.owner.user.discriminator+' ('+message.guild.owner.id+')')
   .addField("Дата создания:", message.guild.createdAt)
-  .addField("Роли", message.guild.roles.size);
+  .addField("Роли:", message.guild.roles.size);
 };
 
 client.on("messageDelete", (del_mess) => {
@@ -85,6 +91,10 @@ client.on("messageDelete", (del_mess) => {
 });
 
 client.on('message', (message) => {
+
+  if(message.channel.id === '425082092838453249'){
+    message.react('425506799408513024');
+    message.react('425506818601517066');};
 
   if(message.author.bot) return;
   if(message.content.indexOf(prefix) !== 0) return;
@@ -174,6 +184,7 @@ client.on('message', (message) => {
         })}
     }
     
+
     if(command === 'penis'){
       var sNumber = '',
       y = 0,
@@ -185,12 +196,15 @@ client.on('message', (message) => {
       } else {
       sNumber = member.user.id};
       
+      if (sNumber !== '218562543185035266'){
       for (var i = 0, len = sNumber.length; i < len; i += 1) {
-      x.push(+sNumber.charAt(i));
-    };
+      x.push(+sNumber.charAt(i));};
     
       for (var i = 0, sum = 0; i < x.length; sum += x[i++]);  
-      y = sum % 69;
+      y = sum % 69;}
+      else{
+      y = 3
+      };
       message.channel.send('8'+'='.repeat(y)+'D');
     };
 
