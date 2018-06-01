@@ -13,7 +13,7 @@ client.on("messageUpdate", (old_mess, new_mess) => {
   if (!old_mess.author.bot) {
   client.channels.get('451753898458349568').send({embed: {
     author: {
-      name: new_mess.author.username,
+      name: new_mess.author.username+' ('+new_mess.author.username+'#'+new_mess.author.discriminator+')',
       icon_url: new_mess.author.avatarURL
     },
       color: 3447003,
@@ -37,24 +37,47 @@ client.on("messageUpdate", (old_mess, new_mess) => {
   });}
 });
 
+function serverInfo(message){
+
+  return embed = new Discord.RichEmbed()
+
+  .setAuthor(message.guild.name, message.guild.iconURL)
+  .setDescription("ID:"+message.guild.id)
+  .setColor(0x00AE86)
+ 
+  .setFooter("© SevenTrio", "")
+ 
+  .setThumbnail(message.guild.iconURL)
+  
+  .setTimestamp()
+
+  .addField("Уровень проверки", 'Нету', true)
+  .addField("Регион", message.guild.region, true)
+  .addField("Участники:", message.guild.memberCount, true)
+  .addField(`Каналы [${message.guild.channels.size}]`,'Текстовых: `'+message.guild.channels.filter(guildchannel => {if(guildchannel.type == "text") return guildchannel}).size+'`\nГолосовых: `'+message.guild.channels.filter(guildchannel => {if(guildchannel.type == "voice") return guildchannel}).size+'`', true )
+  .addField("Создатель:", message.guild.owner.user.username +'#'+message.guild.owner.user.discriminator+' ('+message.guild.owner.id+')')
+  .addField("Дата создания:", message.guild.createdAt)
+  .addField("Роли", message.guild.roles.size);
+};
+
 client.on("messageDelete", (del_mess) => {
   if (!del_mess.author.bot) {
   client.channels.get('451753898458349568').send({embed: {
     author: {
-      name: del_mess.author.username,
+      name: del_mess.author.username+' ('+del_mess.author.username+'#'+del_mess.author.discriminator+')',
       icon_url: del_mess.author.avatarURL
     },
       color: 3447003,
 
       fields: [{
         name: 'Сообщение удалено:',
-        value: '```'+del_mess.content+'```'
+        value: '``` '+del_mess.content+' ```'
       },
     ],
 
       timestamp: new Date(),
       footer: {
-        text: 'in channel '+del_mess.channel.name
+        text: 'in channel #'+del_mess.channel.name
       }
     }
 
@@ -73,6 +96,10 @@ client.on('message', (message) => {
     message.channel.send('Pong! Your ping is `' + `${Date.now() - message.createdTimestamp}` + ' ms`');
   }
 
+  if(command === "serverinfo"){
+  message.channel.send(serverInfo(message));
+  }
+
   if(command === "say" && (message.author.id == "218656629720219658" || message.author.id == "218719595618500608")) {
     const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{});
@@ -89,11 +116,11 @@ client.on('message', (message) => {
 
             fields: [{
                 name: "Мои комады:",
-                value: '**__'+prefix+'ping\n'+prefix+'avatar\n'+prefix+'penis__**\n...\nIn developing!\n...'
+                value: '**__'+prefix+'ping\n'+prefix+'avatar\n'+prefix+'penis\n'+prefix+'serverinfo__** *(эксперементально)*\n...\nIn developing!\n...'
               },
               {
                 name: "Мой сервер:",
-                value: "**Заходи, здесь весело - [Орден Геймеров](https://discord.gg/tkFKQTN)!**"
+                value: "**Заходи, здесь весело - [Орден Геймеров](https://discord.gg/FTgCAj6)!**"
               }
             ],
             timestamp: new Date(),
