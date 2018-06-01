@@ -41,8 +41,8 @@ function serverInfo(message){
 
   if(message.guild.region === 'russia'){
     var reg = 'Россия'} else {reg = message.guild.region};
-  if(message.guild.verification_level == '0'){
-    var vr = 'Нету'} else {vr = message.guild.verification_level};
+  if(message.guild.verificationLevel == '0'){
+    var vr = 'Нету'} else {vr = message.guild.verificationLevel};
 
   return embed = new Discord.RichEmbed()
 
