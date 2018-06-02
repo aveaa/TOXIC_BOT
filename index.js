@@ -5,7 +5,8 @@ const prefix = 's!';
 console.log('Start..');
 
 client.on("ready", () => {
-  console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
+  client.channels.get('452557658759757828').send(`Бот стартовал, вместе с ${client.users.size} пользователями, на ${client.channels.size} каналах в ${client.guilds.size} гильдиях!`);
+  console.log(`Бот стартовал, вместе с ${client.users.size} пользователями, на ${client.channels.size} каналх в ${client.guilds.size} гильдиях!`);
   client.user.setActivity(`on Over999 servers`);
 });
 
@@ -63,9 +64,9 @@ client.on("messageDelete", (del_mess) => {
 });
 
 client.on("guildMemberAdd", (member) => {
-  client.channels.get('451753898458349568').send({embed: {
+  client.channels.get('452553646425767946').send({embed: {
     author: {
-      name: member.user.username+' ('+member.user.username+'#'+member.user.discriminator+')',
+      name: member.user.username+'#'+member.user.discriminator+'   ('+member.user.id+')',
       icon_url: member.user.avatarURL
     },
       color: 0x00ff00,
@@ -80,9 +81,9 @@ client.on("guildMemberAdd", (member) => {
 });
 
 client.on("guildMemberRemove", (member) => {
-  client.channels.get('451753898458349568').send({embed: {
+  client.channels.get('452553646425767946').send({embed: {
     author: {
-      name: member.user.username+' ('+member.user.username+'#'+member.user.discriminator+')',
+      name: member.user.username+'#'+member.user.discriminator+'   ('+member.user.id+')',
       icon_url: member.user.avatarURL
     },
       color: 0xff0000,
@@ -161,7 +162,11 @@ client.on('message', (message) => {
 
             fields: [{
                 name: "Мои комады:",
-                value: '**__'+prefix+'ping\n'+prefix+'avatar\n'+prefix+'penis\n'+prefix+'serverinfo__** *(эксперементально)*\n...\nIn developing!\n...'
+                value: `**__${prefix}ping\n${prefix}avatar\n${prefix}penis\n${prefix}serverinfo__** *(эксперементально)*`
+              },
+              {
+                name:'Автовыдача ролей:',
+                value:`__${prefix}role_18+\n${prefix}role_anime__\n\n*(Только в каналах #addrole и #bot-commands)*`
               },
               {
                 name: "Мой сервер:",
@@ -219,10 +224,17 @@ client.on('message', (message) => {
         })}
     }
     
-   // if(command === '18+'){
-   //  message.guild.member.roles.has('452500116633550878');
-   //  message.channel.send('bad boy');
-   // }
+    if(command === 'role_18+' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
+     if (message.member.roles.has('425656204732137482')){
+      message.member.removeRole('425656204732137482');
+     }else{message.member.addRole('425656204732137482')};
+    }
+    
+    if(command === 'role_anime' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
+      if (message.member.roles.has('428094961360175107')){
+       message.member.removeRole('428094961360175107');
+      }else{message.member.addRole('428094961360175107')};
+    }
 
     if(command === 'penis'){
       var sNumber = '',
@@ -240,12 +252,12 @@ client.on('message', (message) => {
       x.push(+sNumber.charAt(i));};
     
       for (var i = 0, sum = 0; i < x.length; sum += x[i++]);  
-      y = sum % 69;}
-      else{
+      y = sum % 69;
+      }else{
       y = 3
       };
       message.channel.send('8'+'='.repeat(y)+'D');
-    };
+      };
 
 });
 client.login(process.env.BOT_TOKEN).catch(console.error);
