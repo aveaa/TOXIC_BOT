@@ -11,6 +11,7 @@ client.on("ready", () => {
 
 client.on("messageUpdate", (old_mess, new_mess) => {
   if (!old_mess.author.bot) {
+  if (old_mess.content.startsWith('https://')) return;
   client.channels.get('451753898458349568').send({embed: {
     author: {
       name: new_mess.author.username+' ('+new_mess.author.username+'#'+new_mess.author.discriminator+')',
@@ -35,6 +36,64 @@ client.on("messageUpdate", (old_mess, new_mess) => {
     }
 
   });}
+});
+
+client.on("messageDelete", (del_mess) => {
+  if (!del_mess.author.bot) {
+  client.channels.get('451753898458349568').send({embed: {
+    author: {
+      name: del_mess.author.username+' ('+del_mess.author.username+'#'+del_mess.author.discriminator+')',
+      icon_url: del_mess.author.avatarURL
+    },
+      color: 3447003,
+
+      fields: [{
+        name: 'Сообщение удалено:',
+        value: '``` '+del_mess.content+' ```'
+      },
+    ],
+
+      timestamp: new Date(),
+      footer: {
+        text: 'in channel #'+del_mess.channel.name
+      }
+    }
+
+  });}
+});
+
+client.on("guildMemberAdd", (member) => {
+  client.channels.get('451753898458349568').send({embed: {
+    author: {
+      name: member.user.username+' ('+member.user.username+'#'+member.user.discriminator+')',
+      icon_url: member.user.avatarURL
+    },
+      color: 0x00ff00,
+
+      timestamp: new Date(),
+      footer: {
+        text: 'User joined'
+      }
+    }
+
+  });
+});
+
+client.on("guildMemberRemove", (member) => {
+  client.channels.get('451753898458349568').send({embed: {
+    author: {
+      name: member.user.username+' ('+member.user.username+'#'+member.user.discriminator+')',
+      icon_url: member.user.avatarURL
+    },
+      color: 0xff0000,
+
+      timestamp: new Date(),
+      footer: {
+        text: 'User left'
+      }
+    }
+
+  });
 });
 
 function serverInfo(message){
@@ -66,33 +125,9 @@ function serverInfo(message){
   .addField("Роли:", message.guild.roles.size);
 };
 
-client.on("messageDelete", (del_mess) => {
-  if (!del_mess.author.bot) {
-  client.channels.get('451753898458349568').send({embed: {
-    author: {
-      name: del_mess.author.username+' ('+del_mess.author.username+'#'+del_mess.author.discriminator+')',
-      icon_url: del_mess.author.avatarURL
-    },
-      color: 3447003,
-
-      fields: [{
-        name: 'Сообщение удалено:',
-        value: '``` '+del_mess.content+' ```'
-      },
-    ],
-
-      timestamp: new Date(),
-      footer: {
-        text: 'in channel #'+del_mess.channel.name
-      }
-    }
-
-  });}
-});
-
 client.on('message', (message) => {
 
-  if(message.channel.id === '425082092838453249'){
+  if(message.channel.id === '425082092838453249' && message.author.id !== "218719595618500608"){
     message.react('425506799408513024');
     message.react('425506818601517066');};
 
@@ -184,6 +219,10 @@ client.on('message', (message) => {
         })}
     }
     
+   // if(command === '18+'){
+   //  message.guild.member.roles.has('452500116633550878');
+   //  message.channel.send('bad boy');
+   // }
 
     if(command === 'penis'){
       var sNumber = '',
