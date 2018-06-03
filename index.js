@@ -12,10 +12,10 @@ client.on("ready", () => {
 
 client.on("messageUpdate", (old_mess, new_mess) => {
   if (!old_mess.author.bot) {
-  if (old_mess.content.startsWith('https://')) return;
+  if (old_mess.content.startsWith('http')) return;
   client.channels.get('451753898458349568').send({embed: {
     author: {
-      name: new_mess.author.username+' ('+new_mess.author.username+'#'+new_mess.author.discriminator+')',
+      name: new_mess.member.nickname+'  ('+new_mess.author.username+'#'+new_mess.author.discriminator+')',
       icon_url: new_mess.author.avatarURL
     },
       color: 3447003,
@@ -43,7 +43,7 @@ client.on("messageDelete", (del_mess) => {
   if (!del_mess.author.bot) {
   client.channels.get('451753898458349568').send({embed: {
     author: {
-      name: del_mess.author.username+' ('+del_mess.author.username+'#'+del_mess.author.discriminator+')',
+      name: del_mess.member.nickname+'  ('+del_mess.author.username+'#'+del_mess.author.discriminator+')',
       icon_url: del_mess.author.avatarURL
     },
       color: 3447003,
@@ -66,7 +66,7 @@ client.on("messageDelete", (del_mess) => {
 client.on("guildMemberAdd", (member) => {
   client.channels.get('452553646425767946').send({embed: {
     author: {
-      name: member.user.username+'#'+member.user.discriminator+'   ('+member.user.id+')',
+      name: member.user.username+'#'+member.user.discriminator+'  ('+member.user.id+')',
       icon_url: member.user.avatarURL
     },
       color: 0x00ff00,
@@ -83,7 +83,7 @@ client.on("guildMemberAdd", (member) => {
 client.on("guildMemberRemove", (member) => {
   client.channels.get('452553646425767946').send({embed: {
     author: {
-      name: member.user.username+'#'+member.user.discriminator+'   ('+member.user.id+')',
+      name: member.user.username+'#'+member.user.discriminator+'  ('+member.user.id+')',
       icon_url: member.user.avatarURL
     },
       color: 0xff0000,
@@ -123,7 +123,7 @@ function serverInfo(message){
   .addBlankField(true)
   .addField("Создатель:", message.guild.owner.user.username +'#'+message.guild.owner.user.discriminator+' ('+message.guild.owner.id+')')
   .addField("Дата создания:", message.guild.createdAt)
-  .addField("Роли:", message.guild.roles.size);
+  .addField("Роли:", '`'+message.guild.roles.size+' шт`');
 };
 
 client.on('message', (message) => {
@@ -151,6 +151,10 @@ client.on('message', (message) => {
     message.delete().catch(O_o=>{});
     message.channel.send(sayMessage);
   }
+  
+ // if(command === 'test'){
+ //   message.channel.send('<#313751685077925888>');
+ // }
 
   if (command === 'help'){
         message.channel.send({embed: {
@@ -158,7 +162,7 @@ client.on('message', (message) => {
             name: client.user.username,
             icon_url: client.user.avatarURL
           },
-            color: 3447003,
+            color: 0x00AE86,
 
             fields: [{
                 name: "Мои комады:",
@@ -166,7 +170,7 @@ client.on('message', (message) => {
               },
               {
                 name:'Автовыдача ролей:',
-                value:`__${prefix}role_18+\n${prefix}role_anime__\n\n*(Только в каналах #addrole и #bot-commands)*`
+                value:`__${prefix}role_18+\n${prefix}role_anime__\n\n*(Только в каналах <#425092082424610826> и <#425082122630332438>)*`
               },
               {
                 name: "Мой сервер:",
@@ -190,7 +194,7 @@ client.on('message', (message) => {
               name: message.author.username,
               icon_url: message.author.avatarURL
             },
-              color: 3447003,
+              color: 0x00AE86,
   
               image : {
                 url: message.author.avatarURL,
@@ -209,7 +213,7 @@ client.on('message', (message) => {
             name: member.user.username,
             icon_url: member.user.avatarURL
           },
-            color: 3447003,
+            color: 0x00AE86,
 
             image : {
               url: member.user.avatarURL,
@@ -222,6 +226,14 @@ client.on('message', (message) => {
           }
     
         })}
+    }
+
+    if(command === 'мочератор' && message.author.id === '218656629720219658'){
+      let member = message.mentions.members.first();
+      if (member.roles.has('424967798620422145')){
+      member.removeRole('424967798620422145');
+      }else{member.addRole('424967798620422145')};
+      message.delete().catch(O_o=>{});
     }
     
     if(command === 'role_18+' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
@@ -252,9 +264,9 @@ client.on('message', (message) => {
       x.push(+sNumber.charAt(i));};
     
       for (var i = 0, sum = 0; i < x.length; sum += x[i++]);  
-      y = sum % 69;
+      y = sum % 70;
       }else{
-      y = 3
+      y = 24
       };
       message.channel.send('8'+'='.repeat(y)+'D');
       };
