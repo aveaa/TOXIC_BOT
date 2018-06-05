@@ -134,7 +134,7 @@ client.on('message', (message) => {
 
   if(message.author.bot) return;
   if(message.content.indexOf(prefix) !== 0) return;
-  if(message.channel.id === '313751685077925888' && message.author.id !== '218656629720219658') return;
+  if(message.channel.id === '424964715547197455' && message.author.id !== '218656629720219658') return;
   
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
