@@ -16,7 +16,7 @@ client.on("messageUpdate", (old_mess, new_mess) => {
   client.channels.get('451753898458349568').send({embed: {
     author: {
       name: new_mess.member.nickname+'  ('+new_mess.author.username+'#'+new_mess.author.discriminator+')',
-      icon_url: new_mess.author.avatarURL
+      icon_url: new_mess.author.displayAvatarURL
     },
       color: 3447003,
 
@@ -44,7 +44,7 @@ client.on("messageDelete", (del_mess) => {
   client.channels.get('451753898458349568').send({embed: {
     author: {
       name: del_mess.member.nickname+'  ('+del_mess.author.username+'#'+del_mess.author.discriminator+')',
-      icon_url: del_mess.author.avatarURL
+      icon_url: del_mess.author.displayAvatarURL
     },
       color: 3447003,
 
@@ -67,7 +67,7 @@ client.on("guildMemberAdd", (member) => {
   client.channels.get('452553646425767946').send({embed: {
     author: {
       name: member.user.username+'#'+member.user.discriminator+'  ('+member.user.id+')',
-      icon_url: member.user.avatarURL
+      icon_url: member.user.displayAvatarURL
     },
       color: 0x00ff00,
 
@@ -84,7 +84,7 @@ client.on("guildMemberRemove", (member) => {
   client.channels.get('452553646425767946').send({embed: {
     author: {
       name: member.user.username+'#'+member.user.discriminator+'  ('+member.user.id+')',
-      icon_url: member.user.avatarURL
+      icon_url: member.user.displayAvatarURL
     },
       color: 0xff0000,
 
@@ -134,7 +134,7 @@ client.on('message', (message) => {
 
   if(message.author.bot) return;
   if(message.content.indexOf(prefix) !== 0) return;
-  if(message.channel.id === '424964715547197455' && message.author.id !== '218656629720219658') return;
+  if(message.channel.id === '313751685077925888' && message.author.id !== '218656629720219658') return;
   
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
@@ -153,15 +153,15 @@ client.on('message', (message) => {
     message.channel.send(sayMessage);
   }
   
- // if(command === 'test'){
- //   message.channel.send('<#313751685077925888>');
- // }
+  if(command === 'test'){
+    message.channel.send('<#313751685077925888>');
+  }
 
   if (command === 'help'){
         message.channel.send({embed: {
           author: {
             name: client.user.username,
-            icon_url: client.user.avatarURL
+            icon_url: client.user.displayAvatarURL
           },
             color: 0x00AE86,
 
@@ -193,12 +193,12 @@ client.on('message', (message) => {
           return message.reply('держи свою аву!', {embed: {
             author: {
               name: message.author.username,
-              icon_url: message.author.avatarURL
+              icon_url: message.author.displayAvatarURL
             },
               color: 0x00AE86,
   
               image : {
-                url: message.author.avatarURL,
+                url: message.author.displayAvatarURL
               },
   
               timestamp: new Date(),
@@ -212,12 +212,12 @@ client.on('message', (message) => {
         message.reply('получите, распишитесь!', {embed: {
           author: {
             name: member.user.username,
-            icon_url: member.user.avatarURL
+            icon_url: member.user.displayAvatarURL
           },
             color: 0x00AE86,
 
             image : {
-              url: member.user.avatarURL,
+              url: member.user.displayAvatarURL
             },
 
             timestamp: new Date(),
@@ -265,9 +265,9 @@ client.on('message', (message) => {
       x.push(+sNumber.charAt(i));};
     
       for (var i = 0, sum = 0; i < x.length; sum += x[i++]);  
-      y = sum % 69;
+      y = (sum % 69)+1;
       }else{
-      y = 22
+      y = 20
       };
       message.channel.send('8'+'='.repeat(y)+'D');
       };
