@@ -12,7 +12,7 @@ client.on("ready", () => {
 
 client.on("messageUpdate", (old_mess, new_mess) => {
   if (!old_mess.author.bot) {
-  if (old_mess.content.startsWith('http')) return;
+  if (old_mess.content === new_mess.content) return;
   client.channels.get('451753898458349568').send({embed: {
     author: {
       name: new_mess.member.nickname+'  ('+new_mess.author.username+'#'+new_mess.author.discriminator+')',
@@ -32,7 +32,7 @@ client.on("messageUpdate", (old_mess, new_mess) => {
 
       timestamp: new Date(),
       footer: {
-        text: 'in channel '+new_mess.channel.name
+        text: 'in channel #'+new_mess.channel.name
       }
     }
 
@@ -102,7 +102,7 @@ function serverInfo(message){
   if(message.guild.region === 'russia'){
     var reg = 'Россия'} else {reg = message.guild.region};
   if(message.guild.verificationLevel == '0'){
-    var vr = 'Нету'} else {vr = message.guild.verificationLevel};
+    var vl = 'Нету'} else {vl = message.guild.verificationLevel};
 
   return embed = new Discord.RichEmbed()
 
@@ -116,7 +116,7 @@ function serverInfo(message){
   
   .setTimestamp()
 
-  .addField("Уровень проверки", vr, true)
+  .addField("Уровень проверки", vl, true)
   .addField("Регион", reg, true)
   .addField("Участники",'Всего:      `'+message.guild.memberCount+'`\nОнлайн:  `'+message.guild.members.filter(m => m.presence.status !== 'offline').size+'`', true)
   .addField(`Каналы [${message.guild.channels.size}]`,'Текстовых:  `'+message.guild.channels.filter(guildchannel => {if(guildchannel.type == "text") return guildchannel}).size+'`\nГолосовых:  `'+message.guild.channels.filter(guildchannel => {if(guildchannel.type == "voice") return guildchannel}).size+'`', true )
@@ -134,6 +134,7 @@ client.on('message', (message) => {
 
   if(message.author.bot) return;
   if(message.content.indexOf(prefix) !== 0) return;
+  if(message.channel.id === '313751685077925888' && message.author.id !== '218656629720219658') return;
   
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
@@ -264,9 +265,9 @@ client.on('message', (message) => {
       x.push(+sNumber.charAt(i));};
     
       for (var i = 0, sum = 0; i < x.length; sum += x[i++]);  
-      y = sum % 70;
+      y = sum % 69;
       }else{
-      y = 24
+      y = 22
       };
       message.channel.send('8'+'='.repeat(y)+'D');
       };
