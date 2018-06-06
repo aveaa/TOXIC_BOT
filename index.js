@@ -166,7 +166,7 @@ client.on('message', (message) => {
             color: 0x00AE86,
 
             fields: [{
-                name: "Мои комады:",
+                name: "Мои команды:",
                 value: `**__${prefix}ping\n${prefix}avatar\n${prefix}penis\n${prefix}serverinfo__** *(эксперементально)*`
               },
               {
