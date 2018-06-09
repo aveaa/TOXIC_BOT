@@ -248,7 +248,7 @@ client.on('message', (message) => {
        message.member.removeRole('428094961360175107');
       }else{message.member.addRole('428094961360175107')};
     }
-    if(command === 'mafia' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
+    if(command === 'role_mafia' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
       if (message.member.roles.has('455021200268066818')){
        message.member.removeRole('455021200268066818');
       }else{message.member.addRole('455021200268066818')};
