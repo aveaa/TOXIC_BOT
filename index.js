@@ -171,7 +171,7 @@ client.on('message', (message) => {
               },
               {
                 name:'Автовыдача ролей:',
-                value:`__${prefix}role_18+\n${prefix}role_anime__\n\n*(Только в каналах <#425092082424610826> и <#425082122630332438>)*`
+                value:`__${prefix}role_18+\n${prefix}role_anime\n${prefix}role_mafia__\n\n*(Только в каналах <#425092082424610826> и <#425082122630332438>)*`
               },
               {
                 name: "Мой сервер:",
@@ -248,7 +248,11 @@ client.on('message', (message) => {
        message.member.removeRole('428094961360175107');
       }else{message.member.addRole('428094961360175107')};
     }
-
+    if(command === 'mafia' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
+      if (message.member.roles.has('455021200268066818')){
+       message.member.removeRole('455021200268066818');
+      }else{message.member.addRole('455021200268066818')};
+    }
     if(command === 'penis'){
       var sNumber = '',
       y = 0,
