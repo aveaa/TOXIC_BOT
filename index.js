@@ -156,7 +156,7 @@ client.on('message', (message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
-  if(!['ping', 'help'].includes(command) && message.channel.type === 'dm') return message.channel.send('Извините, но данная команда не доступна в личных сообщениях с ботом.');
+  if(!['ping', 'help', 'test'].includes(command) && message.channel.type === 'dm') return message.channel.send('Извините, но данная команда не доступна в личных сообщениях с ботом.');
 
   if(command === 'ping'){
     message.channel.send(`Pong! Your ping is \`${Date.now() - message.createdTimestamp} ms\``);
@@ -185,9 +185,7 @@ client.on('message', (message) => {
       member.send(text)};
     message.delete().catch(O_o=>{});
   }
-  
-  //if(command === 'test') return;
-
+ 
   const tester = '457873402145931265';
   if(command === 'tester' && message.author.id === '218656629720219658'){
     const member = message.mentions.members.first();
@@ -224,7 +222,7 @@ client.on('message', (message) => {
                 },
                 {
                   name:'Немного о работе всей системы:',
-                  value:'У вас не получится:\n__изменить__ или __удалить__ чужую роль, даже если вы будете ее иметь\n__создать__ роль с уже существующим именем\n__создать__ роль, имея больше 2 личных ролей'
+                  value:'У вас не получится:\n__изменить__ или __удалить__ чужую роль, даже если вы будете ее иметь\n__создать__ роль с уже существующим именем\n__создать__ роль, имея больше 3 личных ролей'
                 }
               ],
               timestamp: new Date(),
@@ -277,7 +275,7 @@ client.on('message', (message) => {
   message.delete();
   }
 
-  if(command === 'role' && message.member.roles.has(tester) && message.channel.id === '425082122630332438'){
+  if(command === 'role' && message.member.roles.has(tester)){
 
   client.channels.get('457244718284275723').send({embed: {
       author: {
@@ -305,18 +303,18 @@ client.on('message', (message) => {
         memrole.push(mrole[i])}
      };
   
-    if(memrole.length > 3){
-      message.channel.send('Вы не можете иметь больше 2 уникальных ролей');
-      client.channels.get('457244718284275723').send('Вы не можете иметь больше 2 уникальных ролей');
+    if(memrole.length > 4){
+      message.channel.send('Вы не можете иметь больше 3 уникальных ролей');
+      client.channels.get('457244718284275723').send('Вы не можете иметь больше 3 уникальных ролей');
       return
     };
 
     var sep = message.content.indexOf('#'),
-    rolename = message.content.slice(5,sep).trim(),
+    rolename = message.content.slice(6,sep).trim(),
     rolecolor = '0x'+ message.content.slice(sep+1).trim();
     
     if(sep === -1){
-      rolename = message.content.slice(5).trim();
+      rolename = message.content.slice(6).trim();
       rolecolor = 0};
     
     if(grole.includes(rolename)){
@@ -338,7 +336,7 @@ client.on('message', (message) => {
   
 
 
-  if(command === 'role_delete' && message.member.roles.has(tester) && message.channel.id === '425082122630332438'){
+  if(command === 'role_delete' && message.member.roles.has(tester)){
     client.channels.get('457244718284275723').send({embed: {
       author: {
         name: message.author.username+'#'+message.author.discriminator+'  ('+message.author.id+')',
@@ -354,7 +352,7 @@ client.on('message', (message) => {
     let grole = [];
     message.guild.roles.forEach(role => {grole.push(role.name)});
 
-    var rolename = message.content.slice(12).trim();
+    var rolename = message.content.slice(13).trim();
     if(!grole.includes(rolename)){
       message.channel.send('Данная роль не найдена.');
       client.channels.get('457244718284275723').send('Данная роль не найдена.');
@@ -386,7 +384,7 @@ client.on('message', (message) => {
     }
   }
 
-  if(command === 'role_update' && message.member.roles.has(tester) && message.channel.id === '425082122630332438'){
+  if(command === 'role_update' && message.member.roles.has(tester)){
     client.channels.get('457244718284275723').send({embed: {
       author: {
         name: message.author.username+'#'+message.author.discriminator+'  ('+message.author.id+')',
@@ -404,7 +402,7 @@ client.on('message', (message) => {
 
     var sep = message.content.indexOf(';'),
     sep2 = message.content.indexOf('#')
-    rolename = message.content.slice(12,sep).trim();
+    rolename = message.content.slice(13,sep).trim();
 
     if(!grole.includes(rolename)){
     message.channel.send('Данная роль не найдена.');
