@@ -424,7 +424,7 @@ client.on('message', (message) => {
       newrolecolor = message.guild.roles.find('name', rolename).color;
     };
     if(sep === -1 && sep2 === -1){    
-    message.channel.send('Пожалуйста, соблюдайте синтаксис\n```'+prefix+'role_update <имя роли>; <новое имя> <#цвет>');
+    message.channel.send('Пожалуйста, соблюдайте синтаксис\n```'+prefix+'role_update <имя роли>; <новое имя> <#цвет>```');
     client.channels.get('457244718284275723').send('Пожалуйста, соблюдайте синтаксис\n```'+prefix+'role_update <имя роли>; <новое имя> <#цвет>');
     return 
     };
