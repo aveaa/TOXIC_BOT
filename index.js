@@ -188,7 +188,7 @@ client.on('message', (message) => {
   
   //if(command === 'test') return;
 
-  const tester = '457829850397409280';
+  const tester = '457873402145931265';
   if(command === 'tester' && message.author.id === '218656629720219658'){
     const member = message.mentions.members.first();
   if (!member) {
