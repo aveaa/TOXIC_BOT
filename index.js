@@ -218,7 +218,7 @@ client.on('message', (message) => {
                 },
                 {
                   name: prefix+"role_update <старое имя роли>; <новое имя роли> <#новый цвет>",
-                  value:'Примеры использования:\n```js\n'+prefix+'role SevenTrio; (╯°□°）╯SevenTrio #f8f000 //cмена имени и цвета роли\n'+prefix+'role SevenTrio; (╯°□°）╯SevenTrio //смена только имени\n'+prefix+'role SevenTrio #f8f000 //смена только цвета```'
+                  value:'Примеры использования:\n```js\n'+prefix+'role_update SevenTrio; (╯°□°）╯SevenTrio #f8f000 //смена имени и цвета роли\n'+prefix+'role_update SevenTrio; (╯°□°）╯SevenTrio //смена только имени\n'+prefix+'role_update SevenTrio #f8f000 //смена только цвета```'
                 },
                 {
                   name:'Немного о работе всей системы:',
