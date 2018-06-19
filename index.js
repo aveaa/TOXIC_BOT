@@ -198,7 +198,7 @@ client.on('message', (message) => {
      })
   }
   
-  if(command === "lick"){
+  if(command === "lick" && message.author.id == "218656629720219658"){
     const text = args.join(" ");
     var name = message.member.nickname;
     if(!name){name = message.author.username};
