@@ -128,9 +128,8 @@ function serverInfo(message){
 
 client.on('message', (message) => {
 
-  if (message.channel.type === 'dm'){
-    if ([`${client.user.id}`].includes(message.author.id)) return;
-    //if (['218656629720219658'].includes(message.author.id)) return;
+   if (message.channel.type === 'dm'){
+    if ([client.user.id, '218656629720219658'].includes(message.author.id)) return;
     client.channels.get('457240171478515732').send({embed: {
       author: {
         name: message.author.username+'#'+message.author.discriminator+'  ('+message.author.id+')',
@@ -144,9 +143,9 @@ client.on('message', (message) => {
    })
   }
 
-  if(message.channel.id === '425082092838453249' && message.author.id !== "218719595618500608"){
-    message.react('425506799408513024');
-    message.react('425506818601517066');
+ if(message.channel.id === '425082092838453249' && message.author.id !== "218719595618500608"){
+    message.react('425506799408513024')
+    .then(message.react('425506818601517066'));
   }
 
   if(message.author.bot) return;
