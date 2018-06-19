@@ -197,7 +197,7 @@ client.on('message', (message) => {
      })
   }
   
-  if(command === "lick" && message.author.id == "218656629720219658"){
+  if(command === "lick"){
     const text = args.join(" ");
     var name = message.member.nickname;
     if(!name){name = message.author.username};
@@ -500,7 +500,7 @@ client.on('message', (message) => {
 
             fields: [{
                 name: "Мои команды:",
-                value: `**__${prefix}ping\n${prefix}avatar\n${prefix}penis\n${prefix}serverinfo__**`
+                value: `**__${prefix}ping\n${prefix}avatar\n${prefix}penis\n${prefix}servserverinfo\n${prefix}lick\n${prefix}yoba__**`
               },
               {
                 name:'Автовыдача ролей:',
