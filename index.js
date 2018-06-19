@@ -500,7 +500,7 @@ client.on('message', (message) => {
 
             fields: [{
                 name: "Мои команды:",
-                value: `**__${prefix}ping\n${prefix}avatar\n${prefix}penis\n${prefix}servserverinfo\n${prefix}lick\n${prefix}yoba__**`
+                value: `**__${prefix}ping\n${prefix}avatar\n${prefix}serverinfo\n${prefix}penis\n${prefix}lick\n${prefix}yoba__**`
               },
               {
                 name:'Автовыдача ролей:',
