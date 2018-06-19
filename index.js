@@ -211,7 +211,8 @@ client.on('message', (message) => {
       },
         color: message.member.displayColor,
         
-        description: `<a:lick:458716398110375956>${text}<a:lick1:458716421724307466>`   
+        description: `<a:lick:458716398110375956>${text}<a:lick1:458716421724307466>`,
+        timestamp: new Date()
     }
    })
   }
