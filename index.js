@@ -186,6 +186,10 @@ client.on('message', (message) => {
     message.delete().catch(O_o=>{});
   }
  
+  if(command === 'test' && message.author.id === '218656629720219658'){
+    message.channel.send('<:YOBTA:420274043153940500>');
+  }
+  
   const tester = '457873402145931265';
   if(command === 'tester' && message.author.id === '218656629720219658'){
     const member = message.mentions.members.first();
