@@ -150,11 +150,12 @@ client.on('message', (message) => {
 
   if(message.author.bot) return;
   if(message.content.indexOf(prefix) !== 0) return;
-  if(message.channel.id === '424964715547197455' && message.author.id !== '218656629720219658') return;
   
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-
+  
+  if(message.channel.id === '424964715547197455' && !['lick'].includes(command) && message.author.id !== '218656629720219658') return;
+  
   if(!['ping', 'help', 'test'].includes(command) && message.channel.type === 'dm') return message.channel.send('Извините, но данная команда не доступна в личных сообщениях с ботом.');
 
   if(command === 'ping'){
