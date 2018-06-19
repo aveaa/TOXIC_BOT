@@ -198,6 +198,24 @@ client.on('message', (message) => {
      })
   }
   
+  if(command === "lick"){
+    const text = args.join(" ");
+    var name = message.member.nickname;
+    if(name === ''){name = message.author.username};
+
+    message.delete().catch(O_o=>{});
+    message.channel.send({embed: {
+      author: {
+        name: name,
+        icon_url: member.user.displayAvatarURL
+      },
+        color: 0x00ff00,
+        
+        description: `<a:lick1:438691984694181898>${text}<a:lick2:434603579009925120>`   
+    }
+   })
+  }
+  
   const tester = '457873402145931265';
   if(command === 'tester' && message.author.id === '218656629720219658'){
     const member = message.mentions.members.first();
