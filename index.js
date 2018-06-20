@@ -154,7 +154,7 @@ client.on('message', (message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   
-  if(message.channel.id === '424964715547197455' && !['lick', 'llick'].includes(command) && !['218656629720219658','218719595618500608','218562543185035266'].includes(message.author.id)) return;
+  if(message.channel.id === '424964715547197455' && !['lick', 'llick', 'yoba'].includes(command) && !['218656629720219658','218719595618500608','218562543185035266'].includes(message.author.id)) return;
   
   if(!['ping', 'help', 'test'].includes(command) && message.channel.type === 'dm') return message.channel.send('Извините, но данная команда не доступна в личных сообщениях с ботом.');
 
@@ -195,7 +195,8 @@ client.on('message', (message) => {
         test = JSON.parse(JSON.stringify(arr));
         test[i] += yoba[i];
         m.edit(test.join('\n'))}
-     })
+      if (i === arr.length){m.delete()};
+      })
   }
   
   if(command === "lick"){
@@ -218,15 +219,18 @@ client.on('message', (message) => {
   }
   
   if(command === "llick"){
-    const text = args.slice(1);
-    console.log(text);
-    let member = message.mentions.members.first(),
-    name = member.nickname;
-    console.log(name);
-    if(!name){name = member.user.username};
-    console.log(name);
-
+    const text = args.slice(1).join(' ');
+    let member = message.mentions.members.first();
     message.delete().catch(O_o=>{});
+    if(!member) {return message.channel.send({embed: {
+      color: 0xFF0000,
+      description: "**ERROR**"
+    }}).then(m => {
+     setTimeout(function() { m.delete() }, 1000);
+    })};
+
+    name = member.nickname;
+    if(!name){name = member.user.username};
     message.channel.send({embed: {
       author: {
         name: name,
