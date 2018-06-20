@@ -217,6 +217,28 @@ client.on('message', (message) => {
    })
   }
   
+  if(command === "llick"){
+    const text = args.slice(1);
+    console.log(text);
+    let member = message.mentions.members.first(),
+    name = member.nickname;
+    console.log(name);
+    if(!name){name = member.user.username};
+    console.log(name);
+
+    message.delete().catch(O_o=>{});
+    message.channel.send({embed: {
+      author: {
+        name: name,
+        icon_url: member.user.displayAvatarURL
+      },
+        color: member.displayColor,
+        description: `<a:lick:458716398110375956>${text}<a:lick1:458716421724307466>`,
+        timestamp: new Date()
+    }
+   })
+  }
+  
   const tester = '457873402145931265';
   if(command === 'tester' && message.author.id === '218656629720219658'){
     const member = message.mentions.members.first();
