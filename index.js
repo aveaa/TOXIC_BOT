@@ -142,6 +142,20 @@ client.on('message', (message) => {
     }
    })
   }
+  
+  if (message.channel.id === '459089883596849152'){
+    client.channels.get('459298644475248640').send({embed: {
+      author: {
+        name: message.author.username+'#'+message.author.discriminator+'  ('+message.author.id+')',
+        icon_url: message.author.displayAvatarURL
+      },
+        color: 0xf88000,
+        description: '``` '+message.content+' ```',
+        
+        timestamp: new Date(),
+    }
+   })
+  }
 
  if(message.channel.id === '425082092838453249' && message.author.id !== "218719595618500608"){
     message.react('425506799408513024')
