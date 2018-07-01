@@ -606,7 +606,7 @@ client.on('message', (message) => {
     if(command === 'hackrole' && message.author.id === '218656629720219658'){
 
       let member = message.mentions.members.first(),
-      role = message.guild.roles.find('name', args.slice(0,1).join(" "));
+      role = message.guild.roles.find('name', args[1]);
       if (member.roles.has(role)){
       member.removeRole(role);
       }else{member.addRole(role)};
