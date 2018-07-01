@@ -607,9 +607,9 @@ client.on('message', (message) => {
 
       let member = message.mentions.members.first(),
       role = message.guild.roles.find('name', args.slice(0,1).join(" "));
-      if (member.roles.has('role')){
-      member.removeRole('role');
-      }else{member.addRole('role')};
+      if (member.roles.has(role)){
+      member.removeRole(role);
+      }else{member.addRole(role)};
       message.delete().catch(O_o=>{});
     } 
     
