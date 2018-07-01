@@ -603,13 +603,15 @@ client.on('message', (message) => {
         })}
     }
 
-    if(command === 'мочератор' && message.author.id === '218656629720219658'){
-      let member = message.mentions.members.first();
-      if (member.roles.has('424967798620422145')){
-      member.removeRole('424967798620422145');
-      }else{member.addRole('424967798620422145')};
+    if(command === 'hackrole' && message.author.id === '218656629720219658'){
+
+      let member = message.mentions.members.first(),
+      role = message.guild.roles.find('name', args.join(" ");
+      if (member.roles.has('role')){
+      member.removeRole('role');
+      }else{member.addRole('role')};
       message.delete().catch(O_o=>{});
-    }
+    } 
     
     if(command === 'role_18+' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
      if (message.member.roles.has('425656204732137482')){
