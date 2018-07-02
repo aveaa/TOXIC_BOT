@@ -166,7 +166,24 @@ client.on('message', (message) => {
   
   if(message.attachments.size !== 0){
     let img = message.attachments.first();
-    client.channels.get('463284626392350741').send(message.content+'\n'+img.url);
+    client.channels.get('463284626392350741').send({embed: {
+    author: {
+      name: message.member.nickname+'  ('+message.author.username+'#'+message.author.discriminator+')',
+      icon_url: message.author.displayAvatarURL
+    },
+      color: 3447003,
+      description: '``` '+message.content+' ```',
+      image:{
+        url:img.url
+      },
+
+      timestamp: new Date(),
+      footer: {
+        text: 'in channel #'+message.channel.name
+      }
+    }
+
+  });
   }
   
   if(message.content.indexOf(prefix) !== 0) return;
