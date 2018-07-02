@@ -163,6 +163,12 @@ client.on('message', (message) => {
   }
 
   if(message.author.bot) return;
+  
+  if(message.attachments.size !== 0){
+    let img = message.attachments.first();
+    client.channels.get('463284626392350741').send(message.content+'\n'+img.url);
+  }
+  
   if(message.content.indexOf(prefix) !== 0) return;
   
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -203,7 +209,7 @@ client.on('message', (message) => {
   if(command === 'yoba'){
     message.delete().catch(O_o=>{});
     const arr = ['','`---`','`------`','`---------`','`------------`','`---------------`','`------------------`','`---------------------`','`------------------------`'],
-    yoba = ['<:1_:458632894907416577>', '<:2_:458632917262794752>', '<:3_:458632940230934558>', '<:4_:458632960275513354>','<:1_:458632894907416577>', '<:2_:458632917262794752>', '<:3_:458632940230934558>', '<:4_:458632960275513354>', '<:1_:458632894907416577>'];
+    yoba = ['<:1_:458632894907416577>', '<:2_:458632917262794752>', '<:3_:458632940230934558>', '<:4_:458632960275513354>','<:1_:458632894907416577> - \*фух, устал\*', '<:2_:458632917262794752>', '<:3_:458632940230934558>', '<:4_:458632960275513354>', '<:1_:458632894907416577>'];
     message.channel.send(arr).then(m=> { 
       for(var i = 0; i < arr.length; i++){
         test = JSON.parse(JSON.stringify(arr));
@@ -346,47 +352,96 @@ client.on('message', (message) => {
   message.delete();
   }
 
-  if(command === 'role' && message.member.roles.has(tester)){
+  if(command === 'role'){
 
-  client.channels.get('457244718284275723').send({embed: {
-      author: {
-        name: message.author.username+'#'+message.author.discriminator+'  ('+message.author.id+')',
+    client.channels.get('457244718284275723').send({embed: {
+       author: {
+        name: message.author.tag+'  ('+message.author.id+')',
         icon_url: message.author.displayAvatarURL
-      },
+       },
         color: 0xf88000,
         description: '``` '+message.content+' ```',
         
         timestamp: new Date(),
     }
-   });
+    });
     
     let grole = [],
     mrole = message.member.roles.keyArray();
-    message.guild.roles.forEach(role => {grole.push(role.name)});
-    //message.member.roles.forEach(role => {mrole.push(role.name)});
-    
-    //var systemrole = ['@everyone', 'Администратор' , 'Модератор' , 'Нарушитель' , 'Muted' , 'Король петухов' , 'Mafia' , 'Мертвый' , 'Azerus' , 'Starcraft 2' , 'Osu!' , 'Minecraft' , 'Овощь' , 'Сковородка' , 'Ектороподобный' , 'User' , '18+', 'Художник'],
-    var systemrole = ['@everyone', '425606899652886539' , '424967798620422145' , '425901114727202818' , 'Muted' , '425732235891572758' , '455021200268066818' , '454926694973833217' , '452948992842530826' , '425727854127611904' , '427031352639094804' , '427153367849107462' , '435512289769029672' , '426172617066807307' , '452123615828246529' , '425080250750468097' , '425656204732137482', '427154123679465482', tester],
-    memrole = [];
+    message.guild.roles.forEach(role => {grole.push(role.name)}),    
+    //var systemrole = ['@everyone', 'Администратор' , 'Модератор' , 'Нарушитель' , 'Muted' , 'Король петухов' , 'Mafia' , 'Мертвый' , 'Azerus' , 'Starcraft 2' , 'Osu!' , 'Minecraft' , 'Овощь' , 'Сковородка' , 'Ектороподобный' , 'User' , '18+', 'Художник', 'tester', 'anime', 'civcraft', 'league of legends'],
+    systemrole = ['@everyone', '425606899652886539' , '424967798620422145' , '425901114727202818' , /*'Muted',*/ '425732235891572758' , '455021200268066818' , '454926694973833217' , '452948992842530826' , '425727854127611904' , '427031352639094804' , '427153367849107462' , '435512289769029672' , '426172617066807307' , '452123615828246529' , '425080250750468097' , '425656204732137482', '427154123679465482', tester, '428094961360175107', '459112609816248321', '461846548993671168'],
+    autorole = ['anime', 'azerus', 'civcraft', 'league of legends', 'starcraft 2', '18+', 'mafia', 'osu!'],
+    autoroleid = ['428094961360175107', '452948992842530826', '459112609816248321', '461846548993671168', '425727854127611904', '425656204732137482', '455021200268066818', '427031352639094804'],
+    memrole = [],
+    sep = message.content.indexOf('#'),
+    rolename = message.content.slice(6,sep).trim(),
+    rolecolor = '0x'+ message.content.slice(sep+1).trim();
+
+    if(sep === -1){
+      rolename = message.content.slice(6).trim();
+      rolecolor = 0
+    };
 
      for (var i = 0; i < mrole.length; i++) {
       if(!systemrole.includes(mrole[i])){
         memrole.push(mrole[i])}
      };
+
+    if(rolename === 'help'){message.channel.send({embed: {
+
+      color: 0x00AE86,
+      title:'Информация по созданию ролей:',
+      fields: [{
+          name: prefix+"role <имя роли> <#цвет>",
+          value:'Пример:\n```js\n'+prefix+'role SevenTrio #f8f000\n//создает новую роль с задным названием и цветом```'
+        },
+        {
+          name: prefix+"role_delete <имя роли>",
+          value:'Пример:\n```js\n'+prefix+'role_delete SevenTrio\n//удаляет данную роль```'
+        },
+        {
+          name: prefix+"role_update <старое имя роли>; <новое имя роли> <#новый цвет>",
+          value:'Примеры использования:\n```js\n'+prefix+'role SevenTrio; (╯°□°）╯SevenTrio #f8f000\n//cмена имени и цвета роли\n'+prefix+'role SevenTrio; (╯°□°）╯SevenTrio\n//смена только имени\n'+prefix+'role SevenTrio #f8f000\n//смена только цвета```'
+        },
+       // {
+       //   name:'Немного о работе всей системы:',
+       //   value:'У вас не получится:\n__изменить__ или __удалить__ чужую роль, даже если вы будете ее иметь\n__создать__ роль с уже существующим именем\n__создать__ роль, имея больше 2 личных ролей'
+       // }
+      ],
+      timestamp: new Date(),
+      footer: {
+        text: "По любым вопросам или замечаниям обращаейтесь ко мне, или к @SevenTrio#6226"
+      }
+    }
+
+    });
+    return
+    }
+
+    if(autorole.includes(rolename.toLowerCase())){
+      let auto = autorole.indexOf(rolename.toLowerCase());
+
+      if (message.member.roles.has(autoroleid[auto])){
+        message.member.removeRole(autoroleid[auto]);
+       }else{message.member.addRole(autoroleid[auto])};
+       
+    return message.channel.send('Готово.')
+    };
   
-    if(memrole.length > 4){
-      message.channel.send('Вы не можете иметь больше 3 уникальных ролей');
-      client.channels.get('457244718284275723').send('Вы не можете иметь больше 3 уникальных ролей');
+    if(memrole.length > 3){
+      message.channel.send('Вы не можете иметь больше 2 уникальных ролей');
+      client.channels.get('457244718284275723').send('Вы не можете иметь больше 2 уникальных ролей');
       return
     };
 
-    var sep = message.content.indexOf('#'),
-    rolename = message.content.slice(6,sep).trim(),
-    rolecolor = '0x'+ message.content.slice(sep+1).trim();
-    
-    if(sep === -1){
-      rolename = message.content.slice(6).trim();
-      rolecolor = 0};
+    console.log(rolename.length);
+
+    if(rolename.length > 20){
+      message.channel.send('Ваша роль слишком длинная.');
+      client.channels.get('457244718284275723').send('Ваша роль слишком длинная.');
+      return
+    };
     
     if(grole.includes(rolename)){
       message.channel.send('Такая роль уже существует!');
@@ -407,10 +462,10 @@ client.on('message', (message) => {
   
 
 
-  if(command === 'role_delete' && message.member.roles.has(tester)){
+  if(command === 'role_delete'){
     client.channels.get('457244718284275723').send({embed: {
       author: {
-        name: message.author.username+'#'+message.author.discriminator+'  ('+message.author.id+')',
+        name: message.author.tag+'  ('+message.author.id+')',
         icon_url: message.author.displayAvatarURL
       },
         color: 0xf88000,
@@ -431,7 +486,7 @@ client.on('message', (message) => {
     };
 
     var roleid = message.guild.roles.find('name', rolename).id,
-    banroles = ['425606899652886539' , '424967798620422145' , '425901114727202818' , /*'Muted' ,*/ '425732235891572758' , '455021200268066818' , '454926694973833217' , '452948992842530826' , '425727854127611904' , '427031352639094804' , '427153367849107462' , '435512289769029672' , '426172617066807307' , '452123615828246529' , '425080250750468097' , '425656204732137482', '427154123679465482', tester];
+    banroles = ['425606899652886539' , '424967798620422145' , '425901114727202818' , /*'Muted',*/ '425732235891572758' , '455021200268066818' , '454926694973833217' , '452948992842530826' , '425727854127611904' , '427031352639094804' , '427153367849107462' , '435512289769029672' , '426172617066807307' , '452123615828246529' , '425080250750468097' , '425656204732137482', '427154123679465482', tester, '428094961360175107', '459112609816248321', '461846548993671168'];
     if(banroles.includes(roleid)) {
       message.channel.send('Вы не можете удалить эту роль.')
       client.channels.get('457244718284275723').send('Вы не можете удалить эту роль.');
@@ -455,10 +510,10 @@ client.on('message', (message) => {
     }
   }
 
-  if(command === 'role_update' && message.member.roles.has(tester)){
+  if(command === 'role_update'){
     client.channels.get('457244718284275723').send({embed: {
       author: {
-        name: message.author.username+'#'+message.author.discriminator+'  ('+message.author.id+')',
+        name: message.author.tag+'  ('+message.author.id+')',
         icon_url: message.author.displayAvatarURL
       },
         color: 0xf88000,
@@ -472,8 +527,24 @@ client.on('message', (message) => {
     message.guild.roles.forEach(role => {grole.push(role.name)});
 
     var sep = message.content.indexOf(';'),
-    sep2 = message.content.indexOf('#')
-    rolename = message.content.slice(13,sep).trim();
+    sep2 = message.content.indexOf('#'),
+    rolename = message.content.slice(13,sep).trim(),
+    newrolename = message.content.slice(sep+1,sep2).trim(),
+    newrolecolor = message.content.slice(sep2+1).trim();
+
+    if(sep === -1 && sep2 !== -1){
+      rolename = newrolename = message.content.slice(13,sep2).trim();
+      newrolecolor = message.content.slice(sep2+1).trim()
+    };
+    if(sep !== -1 && sep2 === -1){
+      newrolename = message.content.slice(sep+1).trim();
+      newrolecolor = message.guild.roles.find('name', rolename).color;
+    };
+    if(sep === -1 && sep2 === -1){    
+    message.channel.send('Пожалуйста, соблюдайте синтаксис\n```'+prefix+'role_update <имя роли>; <новое имя> <#цвет>');
+    client.channels.get('457244718284275723').send('Пожалуйста, соблюдайте синтаксис\n```'+prefix+'role_update <имя роли>; <новое имя> <#цвет>');
+    return 
+    };
 
     if(!grole.includes(rolename)){
     message.channel.send('Данная роль не найдена.');
@@ -482,23 +553,7 @@ client.on('message', (message) => {
     };
 
     var roleid = message.guild.roles.find('name', rolename).id,
-    newrolename = message.content.slice(sep+1,sep2).trim(),
-    newrolecolor = message.content.slice(sep2+1).trim(),
-    banroles = ['425606899652886539' , '424967798620422145' , '425901114727202818' , /*'Muted' ,*/ '425732235891572758' , '455021200268066818' , '454926694973833217' , '452948992842530826' , '425727854127611904' , '427031352639094804' , '427153367849107462' , '435512289769029672' , '426172617066807307' , '452123615828246529' , '425080250750468097' , '425656204732137482', '427154123679465482', tester];
-
-    if(sep === -1 && sep2 !== -1){
-      newrolename = rolename;
-      newrolecolor = message.content.slice(sep2+1).trim()
-    };
-    if(sep !== -1 && sep2 === -1){
-      newrolename = message.content.slice(sep+1).trim();
-      newrolecolor = message.guild.roles.find('name', rolename).color;
-    };
-    if(sep === -1 && sep2 === -1){    
-    message.channel.send('Пожалуйста, соблюдайте синтаксис\n```'+prefix+'role_update <имя роли>; <новое имя> <#цвет>```');
-    client.channels.get('457244718284275723').send('Пожалуйста, соблюдайте синтаксис\n```'+prefix+'role_update <имя роли>; <новое имя> <#цвет>');
-    return 
-    };
+    banroles = ['425606899652886539' , '424967798620422145' , '425901114727202818' , /*'Muted',*/ '425732235891572758' , '455021200268066818' , '454926694973833217' , '452948992842530826' , '425727854127611904' , '427031352639094804' , '427153367849107462' , '435512289769029672' , '426172617066807307' , '452123615828246529' , '425080250750468097' , '425656204732137482', '427154123679465482', tester, '428094961360175107', '459112609816248321', '461846548993671168'];
 
     if (banroles.includes(roleid)){
       message.channel.send('Вы не можете удалить эту роль.')
@@ -506,7 +561,7 @@ client.on('message', (message) => {
       return
     };
 
-    if(grole.includes(newrolename)){
+    if(grole.includes(newrolename) && rolename !== newrolename){
       message.channel.send('Такая роль уже существует!');
       client.channels.get('457244718284275723').send('Такая роль уже существует!');
       return
@@ -515,6 +570,12 @@ client.on('message', (message) => {
     if(message.guild.roles.get(roleid).members.size > 1){ 
       message.channel.send('Вы являетесь не единствееным обладателем этой роли, поэтому не можете удалить её.');
       client.channels.get('457244718284275723').send('Вы являетесь не единствееным обладателем этой роли, поэтому не можете удалить её.')
+      return
+    };
+
+    if(rolename.length > 20 && rolename !== newrolename){
+      message.channel.send('Ваша роль слишком длинная.');
+      client.channels.get('457244718284275723').send('Ваша роль слишком длинная.');
       return
     };
 
@@ -532,34 +593,35 @@ client.on('message', (message) => {
   }
 
   if (command === 'help'){
-        message.channel.send({embed: {
-          author: {
-            name: client.user.username,
-            icon_url: client.user.displayAvatarURL
-          },
-            color: 0x00AE86,
+    message.channel.send({embed: {
+      author: {
+        name: client.user.username,
+        icon_url: client.user.displayAvatarURL
+      },
+        color: 0x00AE86,
 
-            fields: [{
-                name: "Мои команды:",
-                value: `**__${prefix}ping\n${prefix}avatar\n${prefix}serverinfo\n${prefix}penis\n${prefix}lick\n${prefix}yoba__**`
-              },
-              {
-                name:'Автовыдача ролей:',
-                value:`${prefix}role_18+\n${prefix}role_anime\n${prefix}role_mafia\n\n*(Только в каналах <#425092082424610826> и <#425082122630332438>)*`
-              },
-              {
-                name: "Мой сервер:",
-                value: "**Заходи, здесь весело - [Орден Геймеров](https://discord.gg/FTgCAj6)!**"
-              }
-            ],
-            timestamp: new Date(),
-            footer: {
-              text: "© SevenTrio"
-            }
+        fields: [{
+            name: "Мои команды:",
+            value: `\`${prefix}ping\n${prefix}avatar\n${prefix}serverinfo\n${prefix}penis\n${prefix}lick\n${prefix}yoba\``
+          },
+          {
+            name:'Автовыдача ролей:',
+            value:`\`anime, azerus, civcraft, league of legends, mafia, starcraft 2, 18+, mafia, osu!\`\n\nДля справки по получению ролей используй:\n\`${prefix}role help\``
+          },
+          {
+            name: "Мой сервер:",
+            value: "Заходи, здесь весело - **[Орден Геймеров](https://discord.gg/FTgCAj6)!**"
           }
-    
-        });
-    }
+        ],
+        timestamp: new Date(),
+        footer: {
+          text: "© SevenTrio"
+        }
+      }
+
+    });
+  }
+
 
     if (command === "avatar") {
       let member = message.mentions.members.first();
@@ -603,33 +665,19 @@ client.on('message', (message) => {
         })}
     }
 
-    if(command === 'hackrole' && message.author.id === '218656629720219658'){
+     if(command === 'hackrole' && message.author.id === '218656629720219658'){
+      let member = message.mentions.members.first(),
+      rolename = args.splice(1,1).join(' '),
+      role;
 
-      let member = message.mentions.members.first(),
-      role = message.guild.roles.find('name', args[1]);
-      if (member.roles.has(role)){
-      member.removeRole(role);
-      }else{member.addRole(role)};
+      if(!member){rolename = args.join(' '); member = message.member}
+      role = message.guild.roles.find('name', rolename).id;
+
+      if (member.roles.has(role)){
+      member.removeRole(role);
+      }else{member.addRole(role)};
       message.delete().catch(O_o=>{});
     } 
-    
-    if(command === 'role_18+' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
-     if (message.member.roles.has('425656204732137482')){
-      message.member.removeRole('425656204732137482');
-     }else{message.member.addRole('425656204732137482')};
-    }
-    
-    if(command === 'role_anime' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
-      if (message.member.roles.has('428094961360175107')){
-       message.member.removeRole('428094961360175107');
-      }else{message.member.addRole('428094961360175107')};
-    }
-
-    if(command === 'role_mafia' && (message.channel.id === '425092082424610826' || message.channel.id === '425082122630332438')){
-      if (message.member.roles.has('455021200268066818')){
-       message.member.removeRole('455021200268066818');
-      }else{message.member.addRole('455021200268066818')};
-    }
 
     if(command === 'penis'){
       var sNumber = '',
