@@ -446,7 +446,7 @@ client.on('message', (message) => {
     return message.channel.send('Готово.')
     };
   
-    if(memrole.length > 3){
+    if(memrole.length > 2){
       message.channel.send('Вы не можете иметь больше 2 уникальных ролей');
       client.channels.get('457244718284275723').send('Вы не можете иметь больше 2 уникальных ролей');
       return
