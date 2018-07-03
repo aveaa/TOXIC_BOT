@@ -242,6 +242,8 @@ client.on('message', (message) => {
   }
   
   if(command === 'react'){
+    
+    message.delete().catch(O_o=>{});
 
     const emoji = {
       a: '🇦',
@@ -301,8 +303,11 @@ client.on('message', (message) => {
       z: '463771300796825610',
     };
 
-    let letter = args.join(' ').split(/([a-z0-9])/i),
+    let letter = args.splice(1,1).join(' ').split(/([a-z0-9])/i),
+    msgid = args[0],
     reacted = [];
+    
+    
     for(var i = 0; i < letter.length; i++){
       if(letter[i] === ' '){
         if(!reacted.includes('463779961065701386')){
@@ -322,9 +327,11 @@ client.on('message', (message) => {
         }
       }
     }
-    multipleReact(message, reacted);
-  }
 
+    message.channel.fetchMessage(msgid).then(msg => {
+      multipleReact(msg, reacted);
+    })
+  }
   
   if(command === "lick"){
     const text = args.join(" ");
@@ -713,7 +720,7 @@ client.on('message', (message) => {
 
         fields: [{
             name: "Мои команды:",
-            value: `\`${prefix}ping\n${prefix}avatar\n${prefix}serverinfo\n${prefix}penis\n${prefix}lick\n${prefix}yoba\``
+            value: `\`${prefix}ping\n${prefix}avatar\n${prefix}serverinfo\n${prefix}react\n${prefix}penis\n${prefix}lick\n${prefix}yoba\``
           },
           {
             name:'Автовыдача ролей:',
