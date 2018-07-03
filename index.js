@@ -126,6 +126,12 @@ function serverInfo(message){
   .addField("Роли:", '`'+message.guild.roles.size+' шт`');
 };
 
+async function multipleReact(message, arr) {
+  if (arr !== []) {
+      await message.react(arr.shift()).catch(console.error).then(function () {multipleReact(message,arr).catch();});
+  }
+}
+
 client.on('message', (message) => {
 
    if (message.channel.type === 'dm'){
@@ -157,9 +163,8 @@ client.on('message', (message) => {
    })
   }
 
- if(message.channel.id === '425082092838453249' && message.author.id !== "218719595618500608"){
-    message.react('425506799408513024')
-    .then(message.react('425506818601517066'));
+  if(message.channel.id === '425082092838453249' && message.author.id !== "218719595618500608"){
+    multipleReact(message, ['425506799408513024', '425506818601517066'])
   }
 
   if(message.author.bot) return;
@@ -172,7 +177,7 @@ client.on('message', (message) => {
       icon_url: message.author.displayAvatarURL
     },
       color: 3447003,
-      description: '``` '+message.content+' ```',
+      description: message.content,
       image:{
         url:img.url
       },
@@ -235,6 +240,91 @@ client.on('message', (message) => {
       if (i === arr.length){m.delete()};
       })
   }
+  
+  if(command === 'react'){
+
+    const emoji = {
+      a: '🇦',
+      b: '🇧',
+      c: '🇨',
+      d: '🇩',
+      e: '🇪',
+      f: '🇫',
+      g: '🇬',
+      h: '🇭',
+      i: '🇮',
+      j: '🇯',
+      k: '🇰',
+      l: '🇱',
+      m: '🇲',
+      n: '🇳',
+      o: '🇴',
+      p: '🇵',
+      q: '🇶',
+      r: '🇷',
+      s: '🇸',
+      t: '🇹',
+      u: '🇺',
+      v: '🇻',
+      w: '🇼',
+      x: '🇽',
+      y: '🇾',
+      z: '🇿'
+    },
+
+    emoji1 = {
+      a: '463640708625072128',
+      b: '463640750979022858',
+      c: '463771160958599168',
+      d: '463771188871823361',
+      e: '463771189031206922',
+      f: '463771299869753345',
+      g: '463771300369006592',
+      h: '463771300029267978',
+      i: '463771300310286362',
+      j: '463771300528390163',
+      k: '463771300444372994',
+      l: '463771300494573568',
+      m: '463771300876255262',
+      n: '463771300263886868',
+      o: '463771301119655967',
+      p: '463771300083531776',
+      q: '463771300209360896',
+      r: '463771300683317249',
+      s: '463771300691836979',
+      t: '463771300209491968',
+      u: '463771300092051476',
+      v: '463771300356161536',
+      w: '463771300062691330',
+      x: '463771300142252033',
+      y: '463771300045914113',
+      z: '463771300796825610',
+    };
+
+    let letter = args.join(' ').split(/([a-z0-9])/i),
+    reacted = [];
+    for(var i = 0; i < letter.length; i++){
+      if(letter[i] === ' '){
+        if(!reacted.includes('463779961065701386')){
+          reacted.push('463779961065701386')
+        }
+        else{
+            reacted.push('463779961317228574')
+        }
+      }
+
+      if(letter[i] in emoji){
+        if(!reacted.includes(emoji[letter[i]])){
+          reacted.push(emoji[letter[i]])
+        }
+        else{
+            reacted.push(emoji1[letter[i]])
+        }
+      }
+    }
+    multipleReact(message, reacted);
+  }
+
   
   if(command === "lick"){
     const text = args.join(" ");
