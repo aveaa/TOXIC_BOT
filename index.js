@@ -303,7 +303,7 @@ client.on('message', (message) => {
       z: '463771300796825610',
     };
 
-    let letter = args.splice(1,1).join(' ').split(/([a-z0-9])/i),
+    let letter = args.splice(1).join(' ').split(/([a-z0-9])/i),
     msgid = args[0],
     reacted = [];
     
@@ -785,7 +785,7 @@ client.on('message', (message) => {
 
      if(command === 'hackrole' && message.author.id === '218656629720219658'){
       let member = message.mentions.members.first(),
-      rolename = args.splice(1,1).join(' '),
+      rolename = args.splice(1).join(' '),
       role;
 
       if(!member){rolename = args.join(' '); member = message.member}
