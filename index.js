@@ -608,6 +608,10 @@ client.on('message', (message) => {
       client.channels.get('457244718284275723').send('Вы не имеете этой роли!');
     }
   }
+  
+  if(command === 'test'){
+  message.react('311562943944720404');
+  }
 
   if (command === 'help'){
     message.channel.send({embed: {
