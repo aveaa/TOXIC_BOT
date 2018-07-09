@@ -207,16 +207,6 @@ client.on('message', (message) => {
   if(command === "serverinfo"){
   message.channel.send(serverInfo(message));
   }
-  
-  if(message.content.startsWith(prefix+'kick')){
-    if(!message.member.hasPermission("KICK_MEMBERS")) return message.reply("Вы не модератор.");
-  let member = message.mentions.member.first();
-    if (member) {
-        member.kick();
-        } else {
-      message.reply('Укажите цель...');
-    }
-  }   
 
   if(command === "say" && (message.author.id == "218656629720219658" || message.author.id == "218719595618500608")){
     const sayMessage = args.join(" ");
