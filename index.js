@@ -192,6 +192,17 @@ client.on('message', (message) => {
   }
   
   if(message.content.indexOf(prefix) !== 0) return;
+
+
+  if(message.content.startsWith(prefix+'kick')){
+    if(!message.member.hasPermission("KICK_MEMBERS")) return message.reply("Вы не модератор.");
+  let member = message.mentions.members.first();
+    if (member) {
+        member.kick().catch();
+        } else {
+      message.reply('Укажите цель...');
+    }
+  } 
   
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
