@@ -11,14 +11,23 @@ client.on("ready", () => {
 });
 
 client.on("messageUpdate", (old_mess, new_mess) => {
+  let img = '';
+   if(old_mess.attachments.size !== 0){
+    img = old_mess.attachments.first().url
+  }
+
   if (!old_mess.author.bot) {
   if (old_mess.content === new_mess.content) return;
-  client.channels.get('451753898458349568').send({embed: {
+  let emb = {embed: {
     author: {
-      name: new_mess.member.nickname+'  ('+new_mess.author.username+'#'+new_mess.author.discriminator+')',
+      name: new_mess.member.nickname+'  ('+new_mess.author.tag+')',
       icon_url: new_mess.author.displayAvatarURL
     },
       color: 3447003,
+
+    image: {
+      url: img
+    },
 
       fields: [{
         name: 'До изменения:',
@@ -36,17 +45,28 @@ client.on("messageUpdate", (old_mess, new_mess) => {
       }
     }
 
-  });}
+  };
+  client.channels.get('451753898458349568').send(emb);
+  client.channels.get('466286183882948609').send(emb);
+}
 });
 
 client.on("messageDelete", (del_mess) => {
+  let img = '';
+  if(del_mess.attachments.size !== 0){
+   img = del_mess.attachments.first().url
+  }
   if (!del_mess.author.bot) {
-  client.channels.get('451753898458349568').send({embed: {
+    let emb = {embed: {
     author: {
-      name: del_mess.member.nickname+'  ('+del_mess.author.username+'#'+del_mess.author.discriminator+')',
+      name: del_mess.member.nickname+'  ('+del_mess.author.tag+')',
       icon_url: del_mess.author.displayAvatarURL
     },
       color: 3447003,
+
+      image:{
+        url:img.url
+      },
 
       fields: [{
         name: 'Сообщение удалено:',
@@ -60,7 +80,10 @@ client.on("messageDelete", (del_mess) => {
       }
     }
 
-  });}
+  };
+  client.channels.get('451753898458349568').send(emb);
+  client.channels.get('466286183882948609').send(emb);
+}
 });
 
 client.on("guildMemberAdd", (member) => {
