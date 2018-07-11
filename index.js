@@ -65,7 +65,7 @@ client.on("messageDelete", (del_mess) => {
       color: 0xf8f000,
 
       image:{
-        url:img.url
+        url:img
       },
 
       fields: [{
