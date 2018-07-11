@@ -23,7 +23,7 @@ client.on("messageUpdate", (old_mess, new_mess) => {
       name: new_mess.member.nickname+'  ('+new_mess.author.tag+')',
       icon_url: new_mess.author.displayAvatarURL
     },
-      color: 3447003,
+      color: 0xf8f000,
 
     image: {
       url: img
@@ -62,7 +62,7 @@ client.on("messageDelete", (del_mess) => {
       name: del_mess.member.nickname+'  ('+del_mess.author.tag+')',
       icon_url: del_mess.author.displayAvatarURL
     },
-      color: 3447003,
+      color: 0xf8f000,
 
       image:{
         url:img.url
