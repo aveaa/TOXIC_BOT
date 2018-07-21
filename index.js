@@ -221,7 +221,7 @@ client.on('message', (message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   
-  if(message.channel.id === '424964715547197455' && !['lick', 'llick', 'yoba', 'react'].includes(command) && !['218656629720219658','218719595618500608','218562543185035266'].includes(message.author.id)) return;
+  if(message.channel.id === '424964715547197455' && !['lick', 'llick', 'yoba', 'react', 'say'].includes(command) && !['218656629720219658','218719595618500608','218562543185035266'].includes(message.author.id)) return;
   
   if(!['ping', 'help', 'test'].includes(command) && message.channel.type === 'dm') return message.channel.send('Извините, но данная команда не доступна в личных сообщениях с ботом.');
 
@@ -233,7 +233,7 @@ client.on('message', (message) => {
   message.channel.send(serverInfo(message));
   }
 
-  if(command === "say" && (message.author.id == "218656629720219658" || message.author.id == "218719595618500608")){
+  if(command === "say" && ['218656629720219658', '218719595618500608', '218562543185035266', '248521740945195008'].includes(message.author.id)){
     const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{});
     message.channel.send(sayMessage);
