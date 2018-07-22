@@ -195,9 +195,9 @@ client.on('message', (message) => {
   if(message.content.startsWith('-mute')){
     if(message.member.hasPermission('ADMINISTRATOR') || ['218656629720219658', '229237540761239553'].includes(message.member.id)){
       let member = message.mentions.members.first(),
-      time = message.content.trim().split(/ +/g)[2],
+      time = message.content.trim().split(/ +/g)[2].slice(0, -1),
       timetype = time.slice(-1),
-      timevalue = time.slice(0, time.length - 1),
+      timevalue = time.slice(0, -1),
       timemute,
       x;
     if(!member) return;
