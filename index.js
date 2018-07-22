@@ -193,7 +193,7 @@ client.on('message', (message) => {
   if(message.author.bot) return;
   
   if(message.content.startsWith('-mute')){
-    if(message.member.hasPermission('ADMINISTRATOR') || ['218656629720219658', '229237540761239553'].includes(message.member.id)){
+    if(message.member.hasPermission('ADMINISTRATOR') || ['218656629720219658', '218656629720219658'].includes(message.member.id)){
       let member = message.mentions.members.first(),
       time = message.content.trim().split(/ +/g)[2].slice(0, -1),
       timetype = time.slice(-1),
@@ -201,13 +201,13 @@ client.on('message', (message) => {
       timemute,
       x;
     if(!member) return;
-    if(!member.roles.has('470583416656494622')) return;
+    if(!member.roles.has('424967798620422145')) return;
       x = ['s', 'm', 'h', 'd'].indexOf(timetype);
     if(x === -1) return;
       timemute = Number(timevalue) * [1000, 60000, 3600000, 86400000][x];
     if(timemute > 21600000) timemute = 21600000;
-      member.removeRole('470583416656494622');
-    setTimeout(function() {member.addRole('470583416656494622')}, timemute);
+      member.removeRole('424967798620422145');
+    setTimeout(function() {member.addRole('424967798620422145')}, timemute);
     
     }
   }
