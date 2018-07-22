@@ -186,7 +186,7 @@ client.on('message', (message) => {
    })
   }
 
-  if(message.channel.id === '425082092838453249' && message.author.id !== "218719595618500608"){
+  if(message.channel.id === '425082092838453249' && !["218719595618500608", "470506970114424833"].includes(message.author.id)){
     multipleReact(message, ['425506799408513024', '425506818601517066'])
   }
 
