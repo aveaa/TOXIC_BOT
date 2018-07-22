@@ -201,13 +201,14 @@ client.on('message', (message) => {
       timemute,
       x;
     if(!member) return;
-    if(!member.roles.has('424967798620422145')) return;
+    if(!member.roles.has('470583416656494622')) return;
       x = ['s', 'm', 'h', 'd'].indexOf(timetype);
     if(x === -1) return;
       timemute = Number(timevalue) * [1000, 60000, 3600000, 86400000][x];
     if(timemute > 21600000) timemute = 21600000;
-      member.removeRole('424967798620422145');
-    setTimeout(function() {member.addRole('424967798620422145')}, timemute); 
+      member.removeRole('470583416656494622');
+    setTimeout(function() {member.addRole('470583416656494622')}, timemute);
+    
     }
   }
   
