@@ -192,6 +192,25 @@ client.on('message', (message) => {
 
   if(message.author.bot) return;
   
+  if(message.content.startsWith('-mute')){
+    if(message.member.hasPermission('ADMINISTRATOR') || ['218656629720219658', '229237540761239553'].includes(message.member.id)){
+      let member = message.mentions.members.first(),
+      time = message.content.trim().split(/ +/g)[2],
+      timetype = time.slice(-1),
+      timevalue = time.slice(0, time.length - 1),
+      timemute,
+      x;
+    if(!member) return;
+    if(!member.roles.has('424967798620422145')) return;
+      x = ['s', 'm', 'h', 'd'].indexOf(timetype);
+    if(x === -1) return;
+      timemute = Number(timevalue) * [1000, 60000, 3600000, 86400000][x];
+    if(timemute > 21600000) timemute = 21600000;
+      member.removeRole('424967798620422145');
+    setTimeout(function() {member.addRole('424967798620422145')}, timemute); 
+    }
+  }
+  
   if(message.attachments.size !== 0){
     let img = message.attachments.first();
     client.channels.get('463284626392350741').send({embed: {
