@@ -206,9 +206,10 @@ client.on('message', (message) => {
     if(x === -1) return;
       timemute = Number(timevalue) * [1000, 60000, 3600000, 86400000][x];
     if(timemute > 21600000) timemute = 21600000;
+    setTimeout(function() {
       member.removeRole('424967798620422145');
-    setTimeout(function() {member.addRole('424967798620422145')}, timemute);
-    
+      setTimeout(function() {member.addRole('424967798620422145')}, timemute);
+      }, 1000);
     }
   }
   
