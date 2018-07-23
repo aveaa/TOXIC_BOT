@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const prefix = 's!';
+const prefixes = ['s!', 'S!'];
 
 console.log('Start..');
 
@@ -235,9 +235,14 @@ client.on('message', (message) => {
   });
   }
   
+  let prefix = false;
+  for(const thisPrefix of prefixes) {
+    if(message.content.startsWith(thisPrefix)) prefix = thisPrefix;
+  }
+  
+  if(!prefix) return;
+  
   if(message.content.indexOf(prefix) !== 0) return;
-
-
 
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
