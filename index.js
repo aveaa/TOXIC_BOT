@@ -794,7 +794,7 @@ client.on('message', (message) => {
               name: message.author.username,
               icon_url: message.author.displayAvatarURL
             },
-              color: 0x00AE86,
+              color: message.member.displayColor,
   
               image : {
                 url: message.author.displayAvatarURL
@@ -813,7 +813,7 @@ client.on('message', (message) => {
             name: member.user.username,
             icon_url: member.user.displayAvatarURL
           },
-            color: 0x00AE86,
+            color: member.displayColor,
 
             image : {
               url: member.user.displayAvatarURL
