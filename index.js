@@ -278,6 +278,10 @@ client.on('message', (message) => {
       member.send(text)};
     message.delete().catch(O_o=>{});
   }
+  
+  if(command === "dycs' && message.member.hasPermission('ADMINISTRATOR')){
+  setTimeout(function() {message.channel.send('<@&471052399256141845>').then(m => m.delete())}, 1000);
+  }
  
   if(command === 'yoba'){
     message.delete().catch(O_o=>{});
