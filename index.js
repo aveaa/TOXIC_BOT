@@ -279,7 +279,7 @@ client.on('message', (message) => {
     message.delete().catch(O_o=>{});
   }
   
-  if(command === "dycs' && message.member.hasPermission('ADMINISTRATOR')){
+  if(command === 'dycs' && message.member.hasPermission('ADMINISTRATOR')){
   setInterval(function() {message.channel.send('<@&471052399256141845>').then(m => {m.delete()})}, 1000);
   }
  
