@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const prefixes = ['s!', 'S!'];
-
+const tester = '457873402145931265';
 console.log('Start..');
 
 client.on("ready", () => {
@@ -522,7 +522,6 @@ client.on('message', (message) => {
    })
   }
   
-  const tester = '457873402145931265';
   if(command === 'tester' && message.author.id === '218656629720219658'){
     const member = message.mentions.members.first();
   if (!member) {
