@@ -317,6 +317,75 @@ client.on('message', (message) => {
       })
   }
   
+  if(command === 'clear_roles'){
+
+    if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send('У вас недостаточно прав.');
+
+    let banroles = ['425606899652886539' , '424967798620422145' , '425901114727202818' , /*'Muted',*/ '425732235891572758' , '455021200268066818' , '454926694973833217' , '452948992842530826' , '425727854127611904' , '427031352639094804' , '427153367849107462' , '435512289769029672' , '426172617066807307' , '452123615828246529' , '425080250750468097' , '425656204732137482', '427154123679465482', tester, '428094961360175107', '459112609816248321', '461846548993671168'];
+
+    let roles = message.guild.roles.filter(guildrole => {if(guildrole.members.size == 0 && !banroles.includes(guildrole.id)) return guildrole}),
+    roled = [],
+    roledname = [];
+
+      roles.forEach(role => roled.push(role.id));
+      roles.forEach(role => roledname.push('# '+role.name));
+
+      message.channel.send("Вы действительно хотите удалить данные роли?\n```markdown\n"+roledname.join('\n')+'```');
+
+      message.channel.startTyping();
+
+      const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 60000 });
+        collector.on('collect', message => {
+          if (['да', 'da', 'lf', 'ага', 'угу', 'fuf', 'eue', 'aga', 'ygy', 'давай', 'го', 'go'].includes(message.content.toLowerCase())) {
+
+            for(var i = 0; i < roled.length; i++){
+              message.guild.roles.get(roled[i]).delete()
+            }
+
+            message.channel.send('Роли удалены.');
+            message.channel.stopTyping();
+            collector.stop();
+          }
+
+          if (['нет', 'no', 'ne', 'net', 'ytn'].includes(message.content.toLowerCase())) {
+
+            message.channel.stopTyping();
+            collector.stop();
+          }
+        });
+  }
+
+  if(command === 'summon' && message.member.hasPermission('ADMINISTRATOR')){
+    let member = message.mentions.members.first(),
+    reason = args.slice(1).join(' ');
+    
+    if(!reason) reason = 'reason not specified <:Thonkery:471010371587538944>';
+    
+    if(member){
+      member.send('**Вас призвали на сервере:**',{embed: {
+        author: {
+          name: message.guild.name,
+          icon_url: message.guild.iconURL
+        },
+        color: 0xf8f000,
+      
+        fields: [{
+            name: 'Призыватель:',
+            value:`${message.author} (${message.author.tag})`
+          },
+          {
+            name: 'Причина призыва:',
+            value: reason
+          },
+          {
+            name: 'Канал:',
+            value: `<#${message.channel.id}>`
+          },
+        ]
+      }});
+    }
+  }
+  
   if(command === 'react'){
     
     message.delete().catch(O_o=>{});
