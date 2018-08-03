@@ -329,6 +329,8 @@ client.on('message', (message) => {
 
       roles.forEach(role => roled.push(role.id));
       roles.forEach(role => roledname.push('# '+role.name));
+    
+      if(roled.length === 0) return message.channel.send('Нету ничейных ролей, приходите позже.');
 
       message.channel.send("Вы действительно хотите удалить данные роли?\n```markdown\n"+roledname.join('\n')+'```');
 
@@ -356,6 +358,9 @@ client.on('message', (message) => {
   }
 
   if(command === 'summon' && message.member.hasPermission('ADMINISTRATOR')){
+    
+    message.delete();
+    
     let member = message.mentions.members.first(),
     reason = args.slice(1).join(' ');
     
