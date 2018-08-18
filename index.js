@@ -957,15 +957,23 @@ client.on('message', (message) => {
       } else {
       sNumber = member.user.id};
       
-      if (sNumber !== '218562543185035266'){
       for (var i = 0, len = sNumber.length; i < len; i += 1) {
       x.push(+sNumber.charAt(i));};
     
       for (var i = 0, sum = 0; i < x.length; sum += x[i++]);  
-      y = (sum % 69)+1;
-      }else{
-      y = 20
-      };
+      y = sum % 69;
+        function result() {
+          if(y > 30){
+            y = y % 33;
+            result(); 
+          }else{
+            return y;
+          }
+        }
+      result();
+
+      if (sNumber == '218562543185035266') y = 20;
+
       message.channel.send('8'+'='.repeat(y)+'D');
       };
 
