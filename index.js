@@ -964,7 +964,8 @@ client.on('message', (message) => {
       y = sum % 69;
         function result() {
           if(y > 30){
-            y = y % 25;
+            y = y % 33;
+             if(y>30) y = y % 25;
             result(); 
           }else{
             return y;
