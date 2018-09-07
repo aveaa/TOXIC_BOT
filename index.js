@@ -971,8 +971,13 @@ client.on('message', (message) => {
        message.channel.send(`Error \`\`\`js\n${error}\`\`\``);
             //Ставит реакцию (Ошибка). 
        message.react("❎") 
-}
-
+    }
+       function clean(text)  {
+            return text
+                .replace(/`/g, "`" + String.fromCharCode(8203))
+                .replace(/@/g, "@" + String.fromCharCode(8203));
+       }
+    }
     if(command === 'penis'){
       var sNumber = '',
       y = 0,
