@@ -945,6 +945,33 @@ client.on('message', (message) => {
       }else{member.addRole(role)};
       message.delete().catch(O_o=>{});
     } 
+    
+    if (['eval', 'эмулировать'].includes(command) && (["218656629720219658"].includes(message.author.id))) {
+	//Захват кода. 
+	const code = args.join(" ").replace(/client\.token|client\[.token.\]/ig, 'process.env.BOT_TOKEN'); 
+	const token = client.token.split("").join("[^]{0,2}");
+    const rev = client.token.split("").reverse().join("[^]{0,2}"); 
+    const filter = new RegExp(`${token}|${rev}`, "g"); 
+    try {
+    	let output = eval(code); 
+        if (output instanceof Promise || (Boolean(output) && typeof output.then === "function" && typeof output.catch === "function")) 
+        output = await output; 
+        output = inspect(output, { depth: 0, maxArrayLength: null }); 
+        output = output.replace(filter, "[TOKEN]"); 
+        output = clean(output); if (output.length < 1950) { 
+        	//Отправляет пользователю данные эмуляции. 
+        message.author.send(`\`\`\`js\n${output}\n\`\`\``);
+            //Ставит реакцию (выполнено). 
+        message.react("✅") 
+        } else { 
+        message.author.send(`${output}`, {split:"\n", code:"js"}); 
+        } 
+    } catch (error) { 
+       //Захватывает ошибку и говорит об этом. 
+       message.channel.send(`Error \`\`\`js\n${error}\`\`\``);
+            //Ставит реакцию (Ошибка). 
+       message.react("❎") 
+}
 
     if(command === 'penis'){
       var sNumber = '',
