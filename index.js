@@ -191,7 +191,7 @@ client.on('message', (message) => {
     multipleReact(message, ['425506799408513024', '425506818601517066'])
   }
   
-  if(message.channel.id === '425082092838453249' && message.attachments.size !== 0){
+  if(message.channel.id === '435439623381057536' && message.attachments.size !== 0){
     multipleReact(message, ['425506799408513024', '425506818601517066'])
   }
 
