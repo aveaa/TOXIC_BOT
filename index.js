@@ -190,6 +190,10 @@ client.on('message', (message) => {
   if(message.channel.id === '425082092838453249' && !["218719595618500608", "218656629720219658"].includes(message.author.id)){
     multipleReact(message, ['425506799408513024', '425506818601517066'])
   }
+  
+  if(message.channel.id === '425082092838453249' && message.attachments.size !== 0){
+    multipleReact(message, ['425506799408513024', '425506818601517066'])
+  }
 
   if(message.author.bot) return;
   
