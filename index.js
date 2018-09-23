@@ -342,7 +342,7 @@ client.on('message', (message) => {
 
       const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 60000 });
         collector.on('collect', message => {
-          if (['да', 'da', 'lf', 'ага', 'угу', 'fuf', 'eue', 'aga', 'ygy', 'давай', 'го', 'go'].includes(message.content.toLowerCase())) {
+          if (['да', 'da', 'lf', 'ага', 'угу', 'fuf', 'eue', 'aga', 'ygy', 'давай', 'го', 'go', 'yes'].includes(message.content.toLowerCase())) {
 
             for(var i = 0; i < roled.length; i++){
               message.guild.roles.get(roled[i]).delete()
