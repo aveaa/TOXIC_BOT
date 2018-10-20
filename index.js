@@ -48,7 +48,7 @@ client.on("messageUpdate", (old_mess, new_mess) => {
     }
 
   };
-  client.channels.get('451753898458349568').send(emb);
+  client.channels.get('503226013053091892').send(emb);
   //client.channels.get('466286183882948609').send(emb);
 }
 });
@@ -83,7 +83,7 @@ client.on("messageDelete", (del_mess) => {
     }
 
   };
-  client.channels.get('451753898458349568').send(emb);
+  client.channels.get('503226013053091892').send(emb);
   //if(del_mess.attachments.size !== 0) client.channels.get('466286183882948609').send(emb);
 }
 });
